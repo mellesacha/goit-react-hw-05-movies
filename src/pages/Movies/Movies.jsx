@@ -18,7 +18,7 @@ const Movies = () => {
             setMovie(results.find(r => r.id === Number(id)))
         })
     
-    }, []);
+    }, [id]);
 
 
     

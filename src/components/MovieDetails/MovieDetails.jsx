@@ -1,6 +1,6 @@
 const MovieDetails = ({ movie }) => {
 
-    const { title, vote_average, overview, poster_path, id} = movie;
+    const { title, vote_average, overview, poster_path} = movie;
     const url = "https://image.tmdb.org/t/p/w500";
     const score = Math.round(Number(vote_average) * 10);
     
