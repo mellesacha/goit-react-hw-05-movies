@@ -1,5 +1,4 @@
 import MovieDetails from "../MovieDetails";
-import Cast from "../../pages/Cast"
 import { Link } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
