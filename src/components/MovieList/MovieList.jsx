@@ -1,8 +1,13 @@
-import MovieListItem from "../MovieListItem/MovieListItem";
+import MovieListItem from "../MovieListItem";
 
 const MovieList = ({ movie }) => {
     return (
-        console.log(movie)
+        movie.map(({ id, title }) => {
+            return (
+                <ul key={id}><MovieListItem title={title} id={ id} /></ul>
+        )
+            
+        })
     )
 };
 

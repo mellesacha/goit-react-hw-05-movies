@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import MovieList from "../Movies";
-import fetchApi from "../../service/FetchApi";
+import MovieList from "../../components/MovieList";
+import {getTopOfDay} from "../../service/FetchApi";
 
 const HomePage = () => {
 
     const [movie, setMovie] = useState([]);
 
-    useEffect(() => { fetchApi().then(({ results }) => setMovie(results)) }, []);
+    useEffect(() => { getTopOfDay().then(({ results }) => setMovie(results)) }, []);
     
 
     return (

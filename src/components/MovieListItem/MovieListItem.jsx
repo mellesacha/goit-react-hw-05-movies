@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom"
 
-const MovieListItem = ({ title }) => {
+const MovieListItem = ({ title, id }) => {
     return (
-        <Link>{title}</Link>
+        <Link to={`/movies/${id}`}>{title}</Link>
     )
 };
 

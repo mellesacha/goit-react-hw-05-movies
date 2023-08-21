@@ -1,5 +1,6 @@
-const fetchApi = () => {
-   const options = {
+const BASE_URL = "https://api.themoviedb.org/3";
+
+const options = {
   method: 'GET',
   headers: {
     accept: 'application/json',
@@ -7,8 +8,13 @@ const fetchApi = () => {
   }
 };
 
-return fetch('https://api.themoviedb.org/3/trending/movie/day', options)
+export const getTopOfDay = async () => {
+
+return await fetch(`${BASE_URL}/trending/movie/day`, options)
   .then(response => response.json());
 };
 
-export default fetchApi;
+export const getMovieCast = async (id) => {
+return await fetch(`${BASE_URL}/movie/${id}/credits`, options)
+  .then(response => response.json());
+};
