@@ -1,31 +1,44 @@
-import { useParams } from "react-router-dom";
-import { getTopOfDay } from "../../service/FetchApi";
 import { useEffect, useState } from "react";
-import MovieCard from "../../components/MovieCard";
+import {getMovieByTitle} from "../../service/FetchApi";
+import { useSearchParams } from "react-router-dom";
+import MovieList from "../../components/MovieList";
 
 const Movies = () => {
+
+    const [query, setQuery] = useState('');
     const [movie, setMovie] = useState([]);
-    const {id} = useParams();
-    console.log(id)
+    const [searchParams, setSearchParams] = useSearchParams();
+    
 
     useEffect(() => {
-        
-        if (!id) {
+        const searchTitle = searchParams.get("query") ?? '';
+        if(!searchTitle) {
             return
         }
+        getMovieByTitle(searchTitle).then(({results}) => setMovie(results))
+    }, [searchParams]);
 
-        getTopOfDay().then(({ results }) => {
-            setMovie(results.find(r => r.id === Number(id)))
-        })
+const handlInputChange = (e) => {
+        const {value} = e.target;
+        setQuery(value);
+    }
+
+const handlBtnSearch = () => {
+    setSearchParams({query});
+    setQuery('');
     
-    }, [id]);
+}
 
 
-    
     return (
-        id ? <MovieCard movie={movie} /> : <div>
-            <input type="text"/>
-            <button type="button"/>
+        
+        <div>
+            <input type="text" 
+            value={query}
+            onChange={handlInputChange}/>
+            <button type="button" 
+            onClick={handlBtnSearch}>Search</button>
+            <MovieList movie={movie}/>
         </div>         
     )
 };
