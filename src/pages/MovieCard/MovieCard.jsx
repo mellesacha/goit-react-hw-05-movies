@@ -1,8 +1,9 @@
 import MovieDetails from "../../components/MovieDetails";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { getMovieDetails } from "../../service/FetchApi";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { Container, Card, Button, ListInfo, LinkInfo } from "./MovieCard.styled";
 
 const MovieCard = () => {
 
@@ -10,7 +11,7 @@ const MovieCard = () => {
     const {id} = useParams();
     const location = useLocation();
 
-    const backLinkHref = location.state?.from ?? "";
+    const backLinkHref = location.state?.from ?? "/";
 
     useEffect(() => {
         
@@ -25,16 +26,21 @@ const MovieCard = () => {
     }, [id]);
 
     return (
-        <div>
-           <Link to={location.state.from}>Go back</Link>
-            <MovieDetails movie={movie} />
+        <Container> 
+            <Card>
+           <Button to={backLinkHref}>Go back</Button>
+            {movie.length !==0 && <MovieDetails movie={movie} />}
             <h3>Additional information</h3>
-            <ul>
-            <li><Link to="cast" state={{from: backLinkHref}}>Cast</Link></li>
-            <li><Link to="reviews" state={{from: backLinkHref}}>Reviews</Link></li>
-            </ul>
+            <ListInfo>
+            <li><LinkInfo to="cast" state={{from: backLinkHref}}>Cast</LinkInfo></li>
+            <li><LinkInfo to="reviews" state={{from: backLinkHref}}>Reviews</LinkInfo></li>
+            </ListInfo>
+            <Suspense>
             <Outlet/>
-        </div>
+            </Suspense>
+            </Card>
+        </Container>
+       
     )
 };
 

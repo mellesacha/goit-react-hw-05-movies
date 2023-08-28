@@ -11,28 +11,53 @@ const options = {
 export const getTopOfDay = async () => {
 
 return await fetch(`${BASE_URL}/trending/movie/day`, options)
-  .then(response => response.json());
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(response.status);
+    }
+    return response.json();
+  })
 };
 
 export const getMovieByTitle = async (title) => {
 
   return await fetch(`${BASE_URL}/search/movie?query=${title}`, options)
-    .then(response => response.json());
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+      return response.json();
+    })
   };
 
   export const getMovieDetails = async (id) => {
 
     return await fetch(`${BASE_URL}/movie/${id}`, options)
-      .then(response => response.json());
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response.status);
+        }
+        return response.json();
+      })
     };
   
 
 export const getMovieCast = async (id) => {
 return await fetch(`${BASE_URL}/movie/${id}/credits`, options)
-  .then(response => response.json());
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(response.status);
+    }
+    return response.json();
+  })
 };
 
 export const getMovieReviews = async (id) => {
   return await fetch(`${BASE_URL}/movie/${id}/reviews`, options)
-    .then(response => response.json());
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+      return response.json();
+    })
   };
